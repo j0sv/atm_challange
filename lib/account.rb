@@ -7,9 +7,9 @@ class Account
   def initialize (attrs = {})
     @account_status = :active
     @pin_code=genarate_pin()
-    @exp_date=set_.to_sexpire_date
+    @exp_date=set_expire_date
     @balance=0
-    @owner = set_owner(attrs[:owner])
+    set_owner(attrs[:owner])
   end
 
   public
@@ -34,9 +34,6 @@ class Account
   private
 
   def set_owner(obj)
-  # here we are using a Ternary Operator for the first time
-  # take a look at this StackOverflow aswer to find out more
-  # http://stackoverflow.com/a/4252945
   obj == nil ?  missing_owner : @owner = obj
   end
 
