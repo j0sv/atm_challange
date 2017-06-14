@@ -1,0 +1,47 @@
+require 'date'
+
+class Account
+  STANDARD_VALIDITY_YRS = 5
+  attr_accessor :pin_code, :exp_date, :account_status, :balance, :owner
+
+  def initialize (attrs = {})
+    @account_status = :active
+    @pin_code=genarate_pin()
+    @exp_date=set_.to_sexpire_date
+    @balance=0
+    @owner = set_owner(attrs[:owner])
+  end
+
+  public
+
+  def deactivate
+    @account_status = :deactivated
+  end
+
+  public
+  def genarate_pin()
+    tmp_pin = rand(0000..9999).to_s
+    while tmp_pin.length < 4
+        tmp_pin="0"+tmp_pin
+    end
+    tmp_pin
+  end
+
+  def set_expire_date
+    Date.today.next_year(STANDARD_VALIDITY_YRS).strftime('%m/%Y')
+  end
+
+  private
+
+  def set_owner(obj)
+  # here we are using a Ternary Operator for the first time
+  # take a look at this StackOverflow aswer to find out more
+  # http://stackoverflow.com/a/4252945
+  obj == nil ?  missing_owner : @owner = obj
+  end
+
+  def missing_owner
+  raise "An Account owner is required"
+  end
+
+end

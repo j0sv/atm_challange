@@ -8,12 +8,14 @@ describe Atm do
   end
 
   it 'has 1000$ on initialize' do
-    expect(subject.funds).to eq 1000
+    expected_output = 1000
+    expect(subject.funds).to eq expected_output
   end
 
   it 'funds are reduced at withdraw' do
+    expected_output = 950
     subject.withdraw(50, '1234', account)
-    expect(subject.funds).to eq 950
+    expect(subject.funds).to eq expected_output
   end
 
   it 'allows withdrawal if account has enough balance.' do
