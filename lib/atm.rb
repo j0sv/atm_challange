@@ -17,16 +17,20 @@ def withdraw(amount, pin_code, account)
     return { status: false, message: 'insufficient funds', date: Date.today }
   when insufficient_funds_in_atm?(amount, @funds)
     return { status: false, message: 'insufficient funds in ATM', date: Date.today }
+  when account_disabled?(account.account_status)
+    return { status: false, message: 'account disabled', date: Date.today }
   else
-    if account_disabled?(account.account_status)
-      return { status: false, message: 'account disabled', date: Date.today }
-    else
-      perform_transaction(amount, account.balance)
-      return { status: true, message: 'success', date: Date.today, amount: amount, bills: bills(amount) }
-            #  { status: true, message: 'success', date: Date.today, amount: amount, bills: add_bills(amount) }
-    end
+    perform_transaction(amount, account.balance)
+    return { status: true, message: 'success', date: Date.today, amount: amount, bills: bills(amount) }
   end
 end
+
+# if account_disabled?(account.account_status)
+#   return { status: false, message: 'account disabled', date: Date.today }
+# else
+#   perform_transaction(amount, account.balance)
+#   return { status: true, message: 'success', date: Date.today, amount: amount, bills: bills(amount) }
+#         #  { status: true, message: 'success', date: Date.today, amount: amount, bills: add_bills(amount) }
 
 
 public
