@@ -4,12 +4,12 @@ class Account
   STANDARD_VALIDITY_YRS = 5
   attr_accessor :pin_code, :exp_date, :account_status, :balance, :owner
 
-  def initialize (obj)
+  def initialize (attr = {})
     @account_status = :active
     @pin_code=genarate_pin()
     @exp_date=set_expire_date
     @balance=0
-    set_owner(obj)
+    @owner=set_owner(attr[:owner])
   end
 
   public
@@ -33,8 +33,8 @@ class Account
 
   private
 
-  def set_owner(obj)
-    obj == nil ?  missing_owner : @owner = obj
+  def set_owner(owner)
+    owner == nil ?  missing_owner : owner
   end
 
   def missing_owner
@@ -44,11 +44,11 @@ class Account
   def deposit(amount)
     @balance+=amount
   end
-  
+
   def set_balance (amount)
     @balance=amount
   end
-  
+
 
 
 

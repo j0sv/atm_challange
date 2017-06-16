@@ -20,7 +20,7 @@ def withdraw(amount, pin_code, account)
   when account_disabled?(account.account_status)
     return { status: false, message: 'account disabled', date: Date.today }
   else
-    perform_transaction(amount, account.balance)
+    perform_transaction(amount, account)
     return { status: true, message: 'success', date: Date.today, amount: amount, bills: bills(amount) }
   end
 end
@@ -58,6 +58,7 @@ end
 
 def perform_transaction(amount, account)
   @funds-=amount
+  account.balance-=amount
 end
 
 def incorrect_pin?(entered_pin_code, account_pin_code)
