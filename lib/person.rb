@@ -54,5 +54,9 @@ class Person
   def missing_cash
     raise 'Person don\'t have enough cash'
   end
+  
+  def increase_cash(response)
+    @cash += response[:amount]
+  end
     
 end

@@ -41,4 +41,15 @@ class Account
     raise "An Account owner is required"
   end
 
+  def deposit(amount)
+    @balance+=amount
+  end
+  
+  def set_balance (amount)
+    @balance=amount
+  end
+  
+
+
+
 end
